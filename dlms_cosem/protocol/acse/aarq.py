@@ -333,9 +333,17 @@ class ApplicationAssociationRequest:
                     ).to_bytes(),
                 )
             )
+             # Set bytes as in NIK AARQ
+            aarq_data[-20] = 18 # !somsing wrong! - wrong langth
         if self.implementation_information is not None:
             aarq_data.extend(BER.encode(0xBD, self.implementation_information))
         if self.user_information is not None:
             aarq_data.extend(BER.encode(0xBE, self.user_information.to_bytes()))
+            # Set bytes as in NIK AARQ
+            aarq_data[-5] = 0
+            aarq_data[-4] = 8
+            aarq_data[-3] = 203
+            aarq_data[-2] = 0
+            aarq_data[-1] = 128
 
         return BER.encode(self.TAG, aarq_data)

@@ -8,13 +8,11 @@ and this project adheres to [Calendar Versioning](https://calver.org/)
 
 ## Unreleased
 
-
+## 25.0.0 - 2024-03-05
 ### Added
-* `use_rlrq_rlre` added to DlmsConnectionSettings. If `False` no ReleaseRequest is sent to server/device and lower 
-   layer can be disconnected right away.
-
+* nik2401 example
 ### Changed
-
+* hdlc suport for nik power meters
 ### Deprecated
 
 ### Removed
@@ -24,7 +22,7 @@ and this project adheres to [Calendar Versioning](https://calver.org/)
 ### Security
 
 
-## 24.1.0 - 2024-01-22
+## [24.1.0] - 2024-01-22
 
 ### Added
 * Support for HDLC over TCP via composition of IO-implementation separate from

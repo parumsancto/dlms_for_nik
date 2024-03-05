@@ -27,7 +27,8 @@ def validate_hdlc_address(instance, attribute, value):
         address_limit = 0b01111111
 
     else:  # server
-        address_limit = 0b0011111111111111
+        #address_limit = 0b0011111111111111
+        address_limit = 0b11111110111111101111111011111111
 
     if value > address_limit:
         raise ValueError(

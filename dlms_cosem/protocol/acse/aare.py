@@ -193,6 +193,7 @@ class ApplicationAssociationResponse(acse_base.AbstractAcseApdu):
             raise ValueError("Bytes are not an AARQ APDU. TAg is not int(96)")
 
         aare_length = aare_data.pop(0)
+        aare_data.pop(-1) # skip 7E (HDLC flag)
 
         if not len(aare_data) == aare_length:
             raise ValueError(

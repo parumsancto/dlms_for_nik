@@ -11,6 +11,8 @@ if sys.version_info < (3, 8):
 else:
     from typing import Protocol
 
+from dlms_cosem.protocol.wrappers import WrapperHeader, WrapperProtocolDataUnit
+
 import attr
 import serial
 
@@ -299,7 +301,6 @@ class HdlcTransport:
     def connect(self):
         """
         Sets up the HDLC Connection by sending a SNRM request.
-
         """
         self.io.connect()
         # TODO: Implement hdlc parameter negotiation in SNRM frame
@@ -365,7 +366,7 @@ class HdlcTransport:
         # The LLC should only be present in the first segmented information frame.
         # So instead we just prepend the data with it we know it will only be in the
         # intial information frame
-
+        
         self.out_buffer += LLC_COMMAND_HEADER
         self.out_buffer += telegram
         self.drain_out_buffer()
@@ -411,14 +412,17 @@ class HdlcTransport:
             data = self.out_buffer[:data_size]
             self.out_buffer = self.out_buffer[data_size:]
             segmented = bool(self.out_buffer)
+
             if self.hdlc_connection.state.current_state != state.IDLE:
                 LOG.debug("Sending data", data=data, transport=self)
                 self.io.send(data)
                 return
+            
             # We don't handle window sizes so final is always true
             out_frame = self.generate_information_frame(
                 data, segmented=segmented, final=True
             )
+
             self.send_frame(out_frame)
             # if it is the last frame we should not listen to possible RR frame
             if segmented:

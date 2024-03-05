@@ -1,7 +1,7 @@
 from __future__ import annotations  # noqa
 
 import os
-from typing import Optional, ClassVar
+from typing import Optional, ClassVar, Literal
 
 
 import attr
@@ -344,9 +344,19 @@ class NoSecurityAuthentication:
 class LowLevelSecurityAuthentication:
     secret: Optional[bytes]
     authentication_method = enumerations.AuthenticationMechanism.LLS
+    user_type: Literal['user', 'operator', 'admin']
 
     def get_calling_authentication_value(self) -> Optional[bytes]:
-        return self.secret
+        return b''.join([self._user_code(), self.secret])
+    
+    def _user_code(self) -> bytes:
+        match(self.user_type):
+            case 'user':
+                return int(0).to_bytes(1, 'big')
+            case 'operator':
+                return int(1).to_bytes(1, 'big')
+            case 'admin':
+                return int(2).to_bytes(1, 'big')
 
     def hls_generate_reply_data(self, connection: DlmsConnection) -> bytes:
         raise RuntimeError(

@@ -44,7 +44,6 @@ class HdlcAddress:
             out.append(((self.logical_address << 1) | 0b00000001))
         else:
             # server address type
-
             logical_higher, logical_lower = self._split_address(self.logical_address)
 
             if self.physical_address:
@@ -70,7 +69,7 @@ class HdlcAddress:
                     pass
             else:
                 out_bytes.append(address.to_bytes(1, "big"))
-
+        
         return b"".join(out_bytes)
 
     @staticmethod

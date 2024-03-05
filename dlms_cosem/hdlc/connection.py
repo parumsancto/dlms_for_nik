@@ -58,23 +58,27 @@ class HdlcConnection:
 
     def handle_sequence_numbers(self, frame_ssn: int, frame_rsn: int, response: bool):
         if not response:
-            if frame_ssn != self.server_ssn or frame_rsn != self.server_rsn:
-                raise LocalProtocolError(
-                    f"Frame sequence numbers are wrong: frame(ssn: {frame_ssn}, rsn: "
-                    f"{frame_rsn}) =! client(ssn:{self.server_ssn}, "
-                    f"rsn:{self.server_rsn})"
-                )
-            self.server_ssn += 1
-            self.client_rsn += 1
+            # if frame_ssn != self.server_ssn or frame_rsn != self.server_rsn:
+            #     raise LocalProtocolError(
+            #         f"Frame sequence numbers are wrong: frame(ssn: {frame_ssn}, rsn: "
+            #         f"{frame_rsn}) =! client(ssn:{self.server_ssn}, "
+            #         f"rsn:{self.server_rsn})"
+            #     )
+
+            # NIK do not increment ssn and rsn
+            self.server_ssn = 0#+= 1
+            self.client_rsn = 0#+= 1
         else:
-            if frame_ssn != self.client_ssn or frame_rsn != self.client_rsn:
-                raise LocalProtocolError(
-                    f"Frame sequence numbers are wrong: frame(ssn: {frame_ssn}, rsn: "
-                    f"{frame_rsn}) =! client(ssn:{self.server_ssn}, "
-                    f"rsn:{self.server_rsn})"
-                )
-            self.server_rsn += 1
-            self.client_ssn += 1
+            # if frame_ssn != self.client_ssn or frame_rsn != self.client_rsn:
+            #     raise LocalProtocolError(
+            #         f"Frame sequence numbers are wrong: frame(ssn: {frame_ssn}, rsn: "
+            #         f"{frame_rsn}) =! client(ssn:{self.server_ssn}, "
+            #         f"rsn:{self.server_rsn})"
+            #     )
+
+            # NIK do not increment ssn and rsn
+            self.server_rsn = 0#+= 1
+            self.client_ssn = 0#+= 1
 
         if self.server_rsn > 7:
             self.server_rsn = 0

@@ -23,7 +23,7 @@ class InvokeIdAndPriority:
     """
 
     invoke_id: int = attr.ib(default=1)
-    confirmed: bool = attr.ib(default=True)
+    confirmed: bool = attr.ib(default=False)
     high_priority: bool = attr.ib(default=True)
 
     LENGTH: ClassVar[int] = 1
