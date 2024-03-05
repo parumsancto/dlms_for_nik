@@ -95,7 +95,8 @@ class HdlcConnection:
         After this you could call next_event
         """
         if data:
-            LOG.debug(f"Added data to buffer", data=data)
+            LOG.debug("Added data to buffer",
+                data=''.join(format(x, '02x')+' ' for x in data))
             self.buffer += data
 
     def next_event(self):
@@ -141,7 +142,7 @@ class HdlcConnection:
             LOG.debug("HDLC frame could not be parsed. Need more data")
             return NEED_DATA
 
-        LOG.debug(f"Received HDLC frame", frame=frame)
+        LOG.debug("Received HDLC frame", frame=frame)
         self.state.process_frame(frame)
         self._tidy_buffer()
 

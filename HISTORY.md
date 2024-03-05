@@ -8,7 +8,7 @@ and this project adheres to [Calendar Versioning](https://calver.org/)
 
 ## Unreleased
 
-## 25.0.0 - 2024-03-05
+## 25.0.1 - 2024-03-05
 ### Added
 * nik2401 example
 ### Changed

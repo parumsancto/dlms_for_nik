@@ -67,8 +67,12 @@ class DlmsClient:
         self.connect()
         self.associate()
         yield self
-        self.release_association()
-        self.disconnect()
+        try:
+            # raise exception with nik2401 but need to call
+            #self.release_association()
+            self.disconnect()
+        except:
+            self.transport.disconnect()
 
     def get(
         self,
@@ -207,7 +211,7 @@ class DlmsClient:
                 hls_data, self.dlms_connection
             ):
                 raise HLSError(
-                    f"Meter did not respond with correct challenge calculation"
+                    "Meter did not respond with correct challenge calculation"
                 )
 
         return response
