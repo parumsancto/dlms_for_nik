@@ -363,3 +363,9 @@ class ActionResultStatus(IntEnum):
     LONG_ACTION_ABORTED = 15
     NO_LONG_ACTION_IN_PROGRESS = 16
     OTHER_REASON = 250
+
+
+@unique
+class NikDataTypes(IntEnum):
+    VISIBLE_STRING = 10
+    UINT32 = 6

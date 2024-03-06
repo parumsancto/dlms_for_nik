@@ -8,9 +8,10 @@ and this project adheres to [Calendar Versioning](https://calver.org/)
 
 ## Unreleased
 
-## 25.0.1 - 2024-03-05
+## 25.0.2 - 2024-03-06
 ### Added
-* nik2401 example
+* parsers for NIK data types
+* nik2104 example
 ### Changed
 * hdlc suport for nik power meters
 ### Deprecated
