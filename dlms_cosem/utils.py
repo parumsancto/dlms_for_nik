@@ -36,3 +36,25 @@ def parse_dlms_object(source_bytes: bytes) -> List[int]:
         values.append(data.pop(0))
 
     return values
+
+
+def manufacturing_num_to_addr(man_num:int) -> tuple[int,int]:
+	""" Convert NIK manufacturing number to logical and physical address 
+	for HDLC transport protocol.
+	Returns tuple (logical_addr, physical_addr)"""
+	addr_hi = 0
+	addr_lo = man_num & 0x3FFF
+
+	if (man_num & 0x3FFF) < 16:
+		addr_lo += 16
+		addr_hi = addr_hi | (1<<12)
+	else:
+		addr_lo = man_num & 0x3FFF
+
+	if ((man_num >> 14) & 0x3FFF) < 16:
+		addr_hi += ((man_num >> 14) & 0x3FFF) + 16
+		addr_hi |= (1 << 13)
+	else:
+		addr_hi |= (man_num >> 14) & 0x3FFF
+	
+	return (addr_hi, addr_lo)

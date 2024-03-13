@@ -16,6 +16,7 @@ from dlms_cosem.security import (
 from dlms_cosem.client import DlmsClient
 from dlms_cosem.io import BlockingTcpIO, HdlcTransport
 from dlms_cosem.parsers import ProtocolNikParser
+from dlms_cosem.utils import manufacturing_num_to_addr
 
 
 # стенд 1
@@ -39,28 +40,6 @@ logging.basicConfig(
 	format="%(asctime)s,%(msecs)d : %(levelname)s : %(message)s",
 	datefmt="%H:%M:%S",
 )
-
-
-def manufacturing_num_to_addr(man_num:int) -> tuple[int,int]:
-	""" Convert NIK manufacturing number to logical and physical address 
-	for HDLC transport protocol.
-	Returns tuple (logical_addr, physical_addr)"""
-	addr_hi = 0
-	addr_lo = man_num & 0x3FFF
-
-	if (man_num & 0x3FFF) < 16:
-		addr_lo += 16
-		addr_hi = addr_hi | (1<<12)
-	else:
-		addr_lo = man_num & 0x3FFF
-
-	if ((man_num >> 14) & 0x3FFF) < 16:
-		addr_hi += ((man_num >> 14) & 0x3FFF) + 16
-		addr_hi |= (1 << 13)
-	else:
-		addr_hi |= (man_num >> 14) & 0x3FFF
-	
-	return (addr_hi, addr_lo)
 
 
 power_meter_addr = manufacturing_num_to_addr(MANUFACTURING_NUM)

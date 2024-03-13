@@ -72,7 +72,10 @@ class DlmsClient:
             #self.release_association()
             self.disconnect()
         except:
-            self.transport.disconnect()
+            try:
+                self.transport.disconnect()
+            except:
+                pass
 
     def get(
         self,
