@@ -73,7 +73,7 @@ class DlmsClient:
             self.disconnect()
         except:
             try:
-                self.transport.disconnect()
+                self.transport.io.disconnect()
             except:
                 pass
 
