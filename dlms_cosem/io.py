@@ -343,7 +343,7 @@ class HdlcTransport:
         """
 
         #while True:
-        for _ in range(7):
+        for _ in range(4):
             # If we already have a complete event buffered internally, just
             # return that. Otherwise, read some data, add it to the internal
             # buffer, and then try again.
