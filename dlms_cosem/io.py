@@ -342,7 +342,8 @@ class HdlcTransport:
         :return:
         """
 
-        while True:
+        #while True:
+        for _ in range(7):
             # If we already have a complete event buffered internally, just
             # return that. Otherwise, read some data, add it to the internal
             # buffer, and then try again.
@@ -351,6 +352,8 @@ class HdlcTransport:
                 self.hdlc_connection.receive_data(self.recv_frame())
                 continue
             return event
+        
+        raise exceptions.CommunicationError("Unable to receive response.")
 
     def send_request(self, telegram: bytes) -> bytes:
         """

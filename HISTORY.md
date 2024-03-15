@@ -8,20 +8,26 @@ and this project adheres to [Calendar Versioning](https://calver.org/)
 
 ## Unreleased
 
-## 25.0.2 - 2024-03-06
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+## [25.0.3] - 2024-03-15
+### Changed
+* remove setup.py
+* remove tests
+### Fixed
+* raise exception when receive wrong responses
+
+## [25.0.2] - 2024-03-06
 ### Added
 * parsers for NIK data types
 * nik2104 example
 ### Changed
 * hdlc suport for nik power meters
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
-
 
 ## [24.1.0] - 2024-01-22
 
