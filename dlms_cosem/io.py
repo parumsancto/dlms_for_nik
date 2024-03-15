@@ -374,7 +374,8 @@ class HdlcTransport:
         self.out_buffer += telegram
         self.drain_out_buffer()
         in_buffer = bytearray()
-        while True:
+        for _ in range(4):
+        #while True:
             response = self.next_event()
             in_buffer += response.payload
             if response.segmented and response.final:
