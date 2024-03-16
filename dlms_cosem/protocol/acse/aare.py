@@ -206,7 +206,8 @@ class ApplicationAssociationResponse(acse_base.AbstractAcseApdu):
         object_dict = dict()
 
         # use the data in tags to go through the bytes and create objects.
-        while True:
+        for _ in range(1000):
+        #while True:
             # TODO: this does not take into account when defining objects in dict and not using them.
             object_tag = aare_data.pop(0)
             object_desc = ApplicationAssociationResponse.PARSE_TAGS.get(
