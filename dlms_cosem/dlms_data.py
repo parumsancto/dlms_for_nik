@@ -558,7 +558,8 @@ def decode_variable_integer(bytes_input: bytes):
 def encode_variable_integer(length: int):
     if length > 0b01111111:
         encoded_length = 1
-        while True:
+        for _ in range(1000):
+        #while True:
             try:
                 length.to_bytes(encoded_length, "big")
             except OverflowError:

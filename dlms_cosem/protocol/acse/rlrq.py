@@ -62,7 +62,8 @@ class ReleaseRequest(AbstractAcseApdu):
         # Decode the AARQ  data
         object_dict = dict()
         # use the data in tags to go through the bytes and create objects.
-        while True:
+        for _ in range(1000):
+        # while True:
             object_tag = rlrq_data.pop(0)
             object_desc = ReleaseRequest.PARSE_TAGS.get(object_tag, None)
             if object_desc is None:
