@@ -212,9 +212,32 @@ class ProtocolNikParser:
 			case enumerations.NikDataTypes.VISIBLE_STRING:
 				return self.data.decode("utf-8").replace('\x00','').strip()
 			
-			case enumerations.NikDataTypes.UINT32:
+			case enumerations.NikDataTypes.BOOL:
+				return False if self.data[1] == 0 else True
+			
+			case t if t in (
+				enumerations.NikDataTypes.INT16,
+				enumerations.NikDataTypes.INT32
+			):
+				return int.from_bytes(
+					self.data[1:],
+					byteorder='little',
+					signed=True
+				) / 1000
+			
+			case t if t in (
+				enumerations.NikDataTypes.UINT16,
+				enumerations.NikDataTypes.UINT32
+			):
 				return int.from_bytes(
 					self.data[1:],
 					byteorder='little',
 					signed=False
 				) / 1000
+			
+			case enumerations.NikDataTypes.BITARRAY:
+				return int.from_bytes(
+					self.data[1:],
+					byteorder='big',
+					signed=False
+				)

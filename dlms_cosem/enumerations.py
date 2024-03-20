@@ -368,4 +368,9 @@ class ActionResultStatus(IntEnum):
 @unique
 class NikDataTypes(IntEnum):
     VISIBLE_STRING = 10
+    BOOL = 3
+    INT32 = 5
     UINT32 = 6
+    INT16 = 16
+    UINT16 = 18
+    BITARRAY = 46
