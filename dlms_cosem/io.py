@@ -186,7 +186,10 @@ class BlockingTcpIO:
         if not self.tcp_socket:
             raise RuntimeError("TCP transport not connected.")
         data = b""
-        while len(data) < amount:
+        #while len(data) < amount:
+        for _ in range(1000):
+            if len(data) >= amount:
+                break
             try:
                 data += self.tcp_socket.recv(amount - len(data))
             except (OSError, IOError, socket.timeout, socket.error) as e:
@@ -195,7 +198,11 @@ class BlockingTcpIO:
 
     def recv_until(self, end: bytes) -> bytes:
         data = b""
-        while not data.endswith(end):
+        #while not data.endswith(end):
+        for _ in range(1000):
+            if data.endswith(end):
+                break
+            
             data += self.recv()
         return data
 
@@ -412,7 +419,10 @@ class HdlcTransport:
         :return:
         """
         data_size = self.hdlc_connection.max_data_size
-        while len(self.out_buffer) > 0:
+        #while len(self.out_buffer) > 0:
+        for _ in range(1000):
+            if len(self.out_buffer) <= 0:
+                break
             data = self.out_buffer[:data_size]
             self.out_buffer = self.out_buffer[data_size:]
             segmented = bool(self.out_buffer)

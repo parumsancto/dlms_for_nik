@@ -462,7 +462,10 @@ class DlmsDataParser:
         # fill the buffer
         self.buffer += data
 
-        while not self.buffer_empty:
+        #while not self.buffer_empty:
+        for _ in range(1000):
+            if self.buffer_empty:
+                break
             self.data.append(self.parse_one_entry())
             if limit:
                 if len(self.data) >= limit:

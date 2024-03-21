@@ -15,6 +15,10 @@ and this project adheres to [Calendar Versioning](https://calver.org/)
 ### Fixed
 ### Security
 
+## [25.0.5] - 2024-03-21
+### Changed
+* replaced all "while ..." with "for _ in range(1000)"
+
 ## [25.0.4] - 2024-03-20
 ### Added
 * new data types: INT16, UINT16, BOOL, BITARRAY

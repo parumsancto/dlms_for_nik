@@ -118,7 +118,10 @@ class HdlcAddress:
         address = bytearray()
         data = bytearray(in_data)
         found_whole_address = False
-        while not found_whole_address:
+        #while not found_whole_address:
+        for _ in range(1000):
+            if found_whole_address:
+                break
             _byte = data.pop(0)
             if bool(_byte & 0b00000001):
                 address.append(_byte)

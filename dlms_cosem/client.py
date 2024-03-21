@@ -90,7 +90,10 @@ class DlmsClient:
         )
         all_data_received = False
         data = bytearray()
-        while not all_data_received:
+        #while not all_data_received:
+        for _ in range(1000):
+            if all_data_received:
+                break
             get_response = self.next_event()
             if isinstance(get_response, xdlms.GetResponseNormal):
                 data.extend(get_response.data)

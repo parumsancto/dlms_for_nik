@@ -180,7 +180,10 @@ class AXdrDecoder:
     def decode_sequence(self, seq: Sequence) -> Dict:
         parsed_data = list()
 
-        while not self.buffer_empty:
+        #while not self.buffer_empty:
+        for _ in range(1000):
+            if self.buffer_empty:
+                break
             tag = self.get_bytes(1)
 
             data_class = dlms_data.DlmsDataFactory.get_data_class(
