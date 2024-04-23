@@ -374,3 +374,4 @@ class NikDataTypes(IntEnum):
     INT16 = 16
     UINT16 = 18
     BITARRAY = 46
+    OCTET_STRING = 50

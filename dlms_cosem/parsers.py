@@ -206,6 +206,8 @@ class ProtocolNikParser:
 	''' ProtocolNIK v.2.12 parser '''
 	data_type:enumerations.NikDataTypes
 	data:bytearray
+
+	
 	def parse(self) -> Any:
 		''' '''
 		match self.data_type:
@@ -241,3 +243,6 @@ class ProtocolNikParser:
 					byteorder='big',
 					signed=False
 				)
+			
+			case enumerations.NikDataTypes.OCTET_STRING:
+				return ''
